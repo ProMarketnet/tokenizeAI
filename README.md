@@ -1,8 +1,6 @@
 
 # TokenizeAI
 
-# TokenizeAI
-
 **AI-Powered Liquidity Infrastructure for Existing Assets**
 
 *Converting illiquid ownership stakes into tradeable tokens to unlock existing value*
