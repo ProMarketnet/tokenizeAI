@@ -1,8 +1,14 @@
 [phases.install]
-cmds = ["npm install --legacy-peer-deps"]
+cmds = ["npm install --legacy-peer-deps --force"]
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = ["CI=false GENERATE_SOURCEMAP=false npm run build"]
 
 [start]
 cmd = "npx serve -s build -p $PORT"
+
+[variables]
+NODE_ENV = "production"
+CI = "false"
+GENERATE_SOURCEMAP = "false"
+NODE_OPTIONS = "--max-old-space-size=4096"
