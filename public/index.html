@@ -1,1 +1,57 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="description" content="AI-Powered Liquidity Infrastructure for Existing Assets. Convert illiquid ownership stakes into tradeable tokens through conversational AI." />
+    <meta name="keywords" content="tokenization, blockchain, AI, liquidity, assets, defi, crypto, shares, real estate" />
+    <meta name="author" content="TokenizeAI Team" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tokenizeai.com/" />
+    <meta property="og:title" content="TokenizeAI - AI-Powered Asset Tokenization" />
+    <meta property="og:description" content="Convert illiquid assets into tradeable tokens through conversational AI. No forms, no complexity - just chat." />
+    <meta property="og:image" content="%PUBLIC_URL%/logo512.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://tokenizeai.com/" />
+    <meta property="twitter:title" content="TokenizeAI - AI-Powered Asset Tokenization" />
+    <meta property="twitter:description" content="Convert illiquid assets into tradeable tokens through conversational AI. No forms, no complexity - just chat." />
+    <meta property="twitter:image" content="%PUBLIC_URL%/logo512.png" />
+    
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- DNS prefetch for faster loading -->
+    <link rel="dns-prefetch" href="//api.tokenizeai.com">
+    
+    <title>TokenizeAI - AI-Powered Asset Tokenization</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    
+    <!-- Service worker registration for PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('%PUBLIC_URL%/sw.js')
+            .then(function(registration) {
+              console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
