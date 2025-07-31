@@ -1,18 +1,11 @@
 [phases.install]
-cmds = [
-  "rm -rf node_modules package-lock.json",
-  "npm install --legacy-peer-deps --force",
-  "npm install ajv@^8.12.0 ajv-keywords@^5.1.0 --legacy-peer-deps --force"
-]
+cmds = ["npm install --legacy-peer-deps --force"]
 
 [phases.build]
-cmds = ["CI=false GENERATE_SOURCEMAP=false npm run build"]
+cmds = ["CI=false npm run build"]
 
 [start]
-cmd = "npx serve -s build -p $PORT"
+cmd = "npm start"
 
 [variables]
 NODE_ENV = "production"
-CI = "false"
-GENERATE_SOURCEMAP = "false"
-NODE_OPTIONS = "--max-old-space-size=4096"
