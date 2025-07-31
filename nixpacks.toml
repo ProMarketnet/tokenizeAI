@@ -1,11 +1,16 @@
 [phases.install]
-cmds = ["npm install --legacy-peer-deps --force"]
+cmds = [
+  "npm install --legacy-peer-deps --force",
+  "npm install ajv@^6.12.6 ajv-keywords@^3.5.2 --legacy-peer-deps --force",
+  "npm list ajv ajv-keywords || true"
+]
 
 [phases.build]
-cmds = ["CI=false npm run build"]
+cmds = ["SKIP_PREFLIGHT_CHECK=true CI=false npm run build"]
 
 [start]
 cmd = "npm start"
 
 [variables]
 NODE_ENV = "production"
+SKIP_PREFLIGHT_CHECK = "true"
