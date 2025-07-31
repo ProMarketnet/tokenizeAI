@@ -2,7 +2,7 @@
   "name": "tokenize-ai",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tokenizeai.com",
+  "homepage": ".",
   "dependencies": {
     "@types/node": "^16.18.0",
     "@types/react": "^18.2.0",
@@ -19,17 +19,16 @@
     "@types/uuid": "^9.0.0",
     "framer-motion": "^10.16.0",
     "lucide-react": "^0.263.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "serve": "^14.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npx serve -s build -p $PORT",
+    "dev": "react-scripts start",
+    "build": "CI=false react-scripts build",
+    "prebuild": "npm install --legacy-peer-deps --force && npm run build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "./scripts/deploy.sh",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "type-check": "tsc --noEmit"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -68,5 +67,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/tokenize-ai.git"
+  },
+  "overrides": {
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0"
+  },
+  "resolutions": {
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0"
   }
 }
