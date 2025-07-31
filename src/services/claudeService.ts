@@ -1,10 +1,5 @@
-import Anthropic from '@anthropic-ai/sdk';
-
-// For production, this should be done through your backend API
-// This is a direct browser implementation for demo purposes
-const anthropic = new Anthropic({
-  apiKey: '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'
-});
+// Mock Claude service for TokenizeAI
+// In production, this would connect to Claude API through your backend
 
 export interface InfoBlock {
   id: string;
@@ -30,41 +25,14 @@ export interface ClaudeResponse {
 
 class ClaudeService {
   private conversationHistory: { role: 'user' | 'assistant'; content: string }[] = [];
-  
-  private systemPrompt = `You are TokenizeAI, an AI assistant that helps people tokenize their illiquid assets like company shares, real estate, and partnership stakes. Your goal is to guide users through the process of converting these assets into tradeable blockchain tokens.
-
-Key guidelines:
-- Be conversational and helpful, like Anthropic's Claude
-- Focus on practical tokenization solutions
-- Ask clarifying questions to understand their assets
-- Explain complex concepts simply
-- Be encouraging about the possibilities of tokenization
-- When appropriate, suggest creating information blocks to track progress
-
-When you identify specific asset information, you can create information blocks using this format:
-[BLOCK:type:title:data]
-
-Available block types: asset, liquidity, legal, compliance, token
-
-Example: [BLOCK:asset:Asset Details:{"company":"TechCorp","shares":1000,"type":"Common Stock","value":"~$50,000"}]
-
-You can also suggest action buttons using:
-[BUTTONS:text1|value1|icon1,text2|value2|icon2]
-
-Example: [BUTTONS:Private startup shares|startup_shares|🚀,Stock options|stock_options|💼]
-
-Keep responses concise but informative, and always maintain a helpful, professional tone.`;
 
   async sendMessage(userMessage: string): Promise<ClaudeResponse> {
     try {
-      // For demo purposes, we'll simulate Claude responses
-      // In production, this should go through your backend API
-      
       // Add user message to history
       this.conversationHistory.push({ role: 'user', content: userMessage });
 
-      // Simple response logic for demo
-      let response = await this.generateResponse(userMessage);
+      // Generate intelligent response
+      const response = await this.generateResponse(userMessage);
       
       // Add assistant response to history
       this.conversationHistory.push({ role: 'assistant', content: response });
@@ -74,9 +42,9 @@ Keep responses concise but informative, and always maintain a helpful, professio
       
       return parsed;
     } catch (error) {
-      console.error('Claude API error:', error);
+      console.error('Claude service error:', error);
       return {
-        content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment.",
+        content: "I apologize, but I'm having trouble processing your request right now. Please try again in a moment.",
         blocks: [],
         buttons: []
       };
@@ -84,6 +52,9 @@ Keep responses concise but informative, and always maintain a helpful, professio
   }
 
   private async generateResponse(userMessage: string): Promise<string> {
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 1200));
+    
     const lowerMessage = userMessage.toLowerCase();
     
     // Asset detection responses
@@ -120,6 +91,35 @@ Typically, I recommend tokenizing your entire stake but only selling the portion
 Would you like me to show you how the tokenization process works?`;
     }
 
+    // Legal structure discussion
+    if (lowerMessage.includes('legal') || lowerMessage.includes('structure') || lowerMessage.includes('compliant')) {
+      return `Excellent question! For your situation, I recommend creating a Delaware LLC that holds your shares, then issuing tokens representing LLC membership interests.
+
+[BLOCK:legal:Legal Structure:{"entityType":"Delaware LLC","tokenStandard":"ERC-20","exemption":"Rule 506(b)","jurisdiction":"United States"}]
+
+This structure is:
+✅ Securities law compliant
+✅ Tax efficient
+✅ Easily tradeable
+✅ Familiar to investors
+
+Ready to move forward with deployment?`;
+    }
+
+    // Token design
+    if (lowerMessage.includes('token') || lowerMessage.includes('how many') || lowerMessage.includes('design')) {
+      return `Let's design your token structure! I recommend:
+
+[BLOCK:token:Token Design:{"totalSupply":"1,000 tokens","ratio":"1 token = 1 share","yourAllocation":"600 tokens (60%)","forSale":"400 tokens (40%)","features":"Auto dividend distribution"}]
+
+🪙 1,000 tokens total = 100% of your shares
+🪙 Each token = 1 share of your company
+🪙 You keep 600 tokens, sell 400
+🪙 Automatic dividend distribution
+
+This gives you $20,000+ in liquidity while keeping 60% upside exposure.`;
+    }
+
     // Real estate responses
     if (lowerMessage.includes('real estate') || lowerMessage.includes('property') || lowerMessage.includes('house')) {
       return `Real estate tokenization is a great use case! I can help you tokenize your property ownership stake to create liquidity without selling the entire property.
@@ -127,6 +127,24 @@ Would you like me to show you how the tokenization process works?`;
 What type of real estate are we working with?
 
 [BUTTONS:Rental property I own|rental_property|🏠,Commercial real estate|commercial_property|🏢,Real estate partnership|re_partnership|🤝]`;
+    }
+
+    // Deployment readiness
+    if (lowerMessage.includes('deploy') || lowerMessage.includes('launch') || lowerMessage.includes('ready')) {
+      return `Perfect! I'm ready to deploy your tokenization infrastructure. Here's what happens next:
+
+📋 Generate legal documents (5 minutes)
+🏗️ Create Delaware LLC (24 hours)
+⛓️ Deploy smart contracts (10 minutes)
+🪙 Mint your tokens (5 minutes)
+📈 Set up trading infrastructure (30 minutes)
+
+Total setup time: ~48 hours
+Setup cost: $2,500
+
+Ready to proceed?
+
+[BUTTONS:Yes, let's deploy!|deploy_confirm|🚀,Review documents first|review_docs|📄]`;
     }
 
     // Default helpful response
